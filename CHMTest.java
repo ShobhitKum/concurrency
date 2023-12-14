@@ -1,16 +1,19 @@
 
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CHMTest {
+public class Test {
 
-    public static void main(String[] args) {
-        CHMTest t = new CHMTest();
-        Map<Integer,Integer> map = t.runExecution(10);
-        System.out.println(map);
+    public static void main(String[] args) throws InterruptedException {
+        Test t = new Test();
+        Map<Integer,Integer> map = t.runExecution(20);
+
+        Thread.sleep(5000);
+        System.out.println("return:::::::"+map);
     }
 
 
@@ -18,7 +21,7 @@ public class CHMTest {
         ExecutorService ex = Executors.newFixedThreadPool(threads);
         Util u = new Util();
         u.init();
-        for(int i =0;i<50;i++){   //50 calls  - 5 calls for each not thread safe
+        for(int i =0;i<100;i++){   //50 calls  - 5 calls for each not thread safe
             //System.out.println((i)%10);  0-9
             UpdateThread workers = new UpdateThread(u,(i+1)%10);
             ex.execute(workers);
@@ -62,6 +65,7 @@ class Util{
 
            // map.compute(key,(k,v)->v==null?:1,v+1);
             //map.put(key, val);
+            System.out.println(map);
         }
         }catch (Exception e){
             System.out.println(e);
